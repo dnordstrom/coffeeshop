@@ -1,0 +1,11 @@
+<%= part 'head.html' %>
+
+<h2>Edit setting</h2>
+
+<form action="<%= "#{path(:base)}/setting/#{setting.setting}/edit" %>" method="post" id="setting">
+  <label for="setting_value"><%= @setting.setting.capitalize %></label>
+  <input type="text" name="setting[value]" id="setting_value" value="<%= @setting.value %>">
+  <input type="submit" value="Save">
+</form>
+
+<%= part 'foot.html' %>
