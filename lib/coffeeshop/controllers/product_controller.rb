@@ -4,15 +4,13 @@ module CoffeeShop
     def handle(request)
       @request = request
       
-      return render_404 if request.id.nil?
-      
       respond
     end
     
     def get
-      @product = CoffeeShop::Product.get(1)
+      @products = @request.id.nil? || @request.id == "all" ? CoffeeShop::Product.all : CoffeeShop::Product.all(:id => @request.id)
       
-      respond_to_xml  { render 'product/get.xml' }
+      respond_to_xml { @products.length ? render("product/get.xml") : render(404) }
     end
   end
 end

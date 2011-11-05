@@ -16,6 +16,7 @@ describe ProductController do
       :price        => 1000,
       :description  => 'Sample description'
     )
+    product()
   end
   
   it "should respond with success status" do
@@ -65,5 +66,13 @@ describe ProductController do
     
     description = document.at_css("description").content
     description.should == "Sample description"
+  end
+  
+  it "should return all products in XML" do
+    response = get "/product/all.xml"
+    document = Nokogiri::XML( content_of(response) )
+    
+    products = document.css("product")
+    products.count.should == 2
   end
 end

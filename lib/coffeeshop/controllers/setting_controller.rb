@@ -8,7 +8,7 @@ module CoffeeShop
       @request = request
       setting  = @request.id
       
-      return render_404 if setting.nil? or !CoffeeShop::Setting.exists?(setting)
+      return render 404 if setting.nil? or !CoffeeShop::Setting.exists?(setting)
       
       respond
     end

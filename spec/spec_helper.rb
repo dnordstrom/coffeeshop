@@ -1,5 +1,5 @@
 module Factory
-  def setting(values)
+  def setting(values = {})
     default_values = {
       :setting  => "title",
       :value    => "CoffeeShop"
@@ -7,7 +7,7 @@ module Factory
     CoffeeShop::Setting.create!( default_values.merge(values) )
   end
   
-  def product(values)
+  def product(values = {})
     default_values = {
       :title        => "Sample Product",
       :price        => 1000,

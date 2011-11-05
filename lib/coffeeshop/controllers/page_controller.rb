@@ -3,9 +3,9 @@ module CoffeeShop
     def handle(request)
       @request = request
       
-      return render_404 unless request.controller === self.class.to_s.split('::')[1]
+      return render 404 unless request.controller === self.class.to_s.split('::')[1]
       return render 'page/index.html' if request.id.nil?
-      return render_404 unless CoffeeShop::Template.exists?("page/#{request.id}.html")
+      return render 404 unless CoffeeShop::Template.exists?("page/#{request.id}.html")
       
       respond
     end

@@ -17,7 +17,9 @@ module CoffeeShop
     end
 
     def render(view)
-      content_type = @request.format.nil? ? "text/html" : "text/#{@request.format}"
+      view          = "page/404.html" if view == 404
+      content_type  = @request.format.nil? ? "text/html" : "text/#{@request.format}"
+      
       @output = CoffeeShop::Response.new(view, binding, { 'Content-Type' => content_type }).finish
     end
 
@@ -26,7 +28,7 @@ module CoffeeShop
     end
     
     def render_404
-      render 'page/404.html'
+      render 404
     end
     
     def respond
