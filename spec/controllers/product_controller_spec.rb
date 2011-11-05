@@ -33,14 +33,37 @@ describe ProductController do
     format_of(response).should == :xml
   end
   
+  it "should return product ID in XML" do
+    response = get "/product/1.xml"
+    document = Nokogiri::XML( content_of(response) )
+    
+    product = document.at_css("products product")
+    id      = product.attribute("id").value.to_i
+    
+    id.should == 1
+  end
+  
   it "should return product title in XML" do
     response = get "/product/1.xml"
+    document = Nokogiri::XML( content_of(response) )
     
-    document = Nokogiri::XML( content_of(response) ) do |config|
-      config.noblanks.noent
-    end
+    title = document.at_css("products product title").content
+    title.should == 'Sample Product'
+  end
+  
+  it "should return product price in XML" do
+    response = get "/product/1.xml"
+    document = Nokogiri::XML( content_of(response) )
     
-    product = document.at_css("products product title").content
-    product.should == 'Sample Product'
+    price = document.at_css("products product price").content.to_i
+    price.should == 1000
+  end
+  
+  it "should return product description in XML" do
+    response = get "/product/1.xml"
+    document = Nokogiri::XML( content_of(response) )
+    
+    description = document.at_css("products product description").content
+    description.should == "Sample description"
   end
 end
