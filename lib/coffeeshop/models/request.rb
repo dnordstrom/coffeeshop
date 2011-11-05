@@ -13,7 +13,12 @@ module CoffeeShop
       @controller  = (path[1] || 'page').capitalize + 'Controller'              # Name of controller class to be invoked
       @id          =  path[2]                                                   # ID of resource, if requested
       @action      =  path[3].nil? ? nil : (path[3].split('.')[0] || path[3])   # Specified action
-      @format      =  path[3].nil? ? 'html' : (path[3].split('.')[1] || 'html') # Requested format, defaults to HTML
+      
+      if !@id.nil? && @id.include?(".")
+        strings = @id.split(".")        # Split string if format has been appended to ID in URL
+        @id     = strings[0]            # ID of resource, if requested
+        @format = strings[1]            # Requested format, defaults to HTML
+      end
     end
     
     def put?
@@ -25,8 +30,7 @@ module CoffeeShop
     end
     
     def http_method
-      return false if params['_method'].nil?
-      params['_method'].upcase
+      params['_method'].nil? ? false : params['_method'].upcase
     end
   end
 end

@@ -38,7 +38,8 @@ module CoffeeShop
       def VALID_CONTROLLERS
         [
           'PageController',
-          'SettingController'
+          'SettingController',
+          'ProductController'
         ]
       end
     end

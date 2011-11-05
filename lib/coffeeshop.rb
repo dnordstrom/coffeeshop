@@ -17,6 +17,7 @@ require_relative 'coffeeshop/controller'
 # Controllers
 require_relative 'coffeeshop/controllers/page_controller'
 require_relative 'coffeeshop/controllers/setting_controller'
+require_relative 'coffeeshop/controllers/product_controller'
 
 # Models
 require_relative 'coffeeshop/models/product'

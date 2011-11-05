@@ -4,7 +4,7 @@ module CoffeeShop
       super('') # Pass empty argument to constructor to keep response body empty
 
       if Template.exists?(view)
-        @status = 200
+        @status = (view == "page/404.html" ? 404 : 200)
         write Template.load(view, binding)
       else
         @status = 404
