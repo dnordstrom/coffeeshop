@@ -37,7 +37,7 @@ describe ProductController do
     response = get "/product/1.xml"
     document = Nokogiri::XML( content_of(response) )
     
-    product = document.at_css("products product")
+    product = document.at_css("product")
     id      = product.attribute("id").value.to_i
     
     id.should == 1
@@ -47,7 +47,7 @@ describe ProductController do
     response = get "/product/1.xml"
     document = Nokogiri::XML( content_of(response) )
     
-    title = document.at_css("products product title").content
+    title = document.at_css("title").content
     title.should == 'Sample Product'
   end
   
@@ -55,7 +55,7 @@ describe ProductController do
     response = get "/product/1.xml"
     document = Nokogiri::XML( content_of(response) )
     
-    price = document.at_css("products product price").content.to_i
+    price = document.at_css("price").content.to_i
     price.should == 1000
   end
   
@@ -63,7 +63,7 @@ describe ProductController do
     response = get "/product/1.xml"
     document = Nokogiri::XML( content_of(response) )
     
-    description = document.at_css("products product description").content
+    description = document.at_css("description").content
     description.should == "Sample description"
   end
 end
