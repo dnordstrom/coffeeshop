@@ -16,7 +16,7 @@ describe ProductController do
       :price        => 1000,
       :description  => 'Sample description'
     )
-    product()
+    product() # Product will have default values specified in Factory
   end
   
   it "should respond with success status" do
