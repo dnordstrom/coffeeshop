@@ -17,7 +17,8 @@ module CoffeeShop
     end
 
     def render(view)
-      @output = CoffeeShop::Response.new(view, binding).finish
+      content_type = @request.format.nil? ? "text/html" : "text/#{@request.format}"
+      @output = CoffeeShop::Response.new(view, binding, { 'Content-Type' => content_type }).finish
     end
 
     def part(view)
@@ -38,11 +39,19 @@ module CoffeeShop
     end
     
     def respond_to_html(&block)
-      block.call if @request.format.to_sym === :html
+      if !@request.format.nil? && @request.format.to_sym === :html
+        block.call
+      else
+        render_404
+      end
     end
     
     def respond_to_xml(&block)
-      block.call if @request.format.to_sym === :xml
+      if !@request.format.nil? && @request.format.to_sym === :xml
+        block.call
+      else
+        render_404
+      end
     end
   end
 end

@@ -1,5 +1,6 @@
 module CoffeeShop
   class ProductController < CoffeeShop::Controller
+    include PathHelper
     def handle(request)
       @request = request
       
@@ -9,6 +10,8 @@ module CoffeeShop
     end
     
     def get
+      @product = CoffeeShop::Product.get(1)
+      
       respond_to_xml  { render 'product/get.xml' }
     end
   end

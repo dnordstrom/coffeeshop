@@ -5,6 +5,7 @@ require 'dm-sqlite-adapter'
 require 'dm-migrations'
 require 'dm-validations'
 require 'rack'
+require 'nokogiri'
 
 # Helpers
 require_relative 'coffeeshop/helpers/path_helper'

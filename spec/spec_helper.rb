@@ -20,8 +20,6 @@ end
 module SpecHelper
   def setup
     @app = Application.new
-    @app.load_environment
-    @app.configure_database
   end
 end
 
@@ -59,5 +57,15 @@ module RequestHelper
   
   def status_of(response)
     response[0]
+  end
+  
+  def format_of(response)
+    content_type = response[1]["Content-Type"]
+    
+    return :xml if content_of(response).include?("<?xml") && content_type == "text/xml"
+  end
+  
+  def content_of(response)
+    response[2].body.join
   end
 end
