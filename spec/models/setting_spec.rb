@@ -12,12 +12,12 @@ describe Setting do
     @title = setting({ :setting => "title", :value => "CoffeeShop" })
   end
   
-  it "gets the setting value" do
+  it "should get the setting value" do
     setting = Setting.get("title")
     setting.should == "CoffeeShop"
   end
   
-  it "checks if setting exists" do
+  it "should check if setting exists" do
     Setting.exists?("title").should be_true
   end
 end

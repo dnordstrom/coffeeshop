@@ -11,7 +11,7 @@ describe ProductController do
     setup
   end
   
-  it "should respond with valid response" do
+  it "should respond with success status" do
     response = get "/product/1.xml"
     status_of(response).should == 200
   end
