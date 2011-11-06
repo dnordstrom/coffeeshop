@@ -25,12 +25,20 @@ end
 
 module RequestHelper
   def get(path, data = {})
-    query_string  = []
-    env           = get_environment("PATH_INFO" => path)
+    env           = get_environment(
+      "PATH_INFO"     => path,
+      "QUERY_STRING"  => parse(data)
+    )
     
-    data.each do |key, value|
-      query_string.push CGICGI::escape(value) + "=" + CGI::escape(value)
-    end
+    @app.call(env)
+  end
+  
+  def post(path, data = {})    
+    env           = get_environment(
+      "REQUEST_METHOD"  => "POST",
+      "PATH_INFO"       => path,
+      "QUERY_STRING"    => parse(data)
+    )
     
     @app.call(env)
   end
@@ -55,6 +63,14 @@ module RequestHelper
     default_values.merge(values)
   end
   
+  def parse(data)
+    query_string = []
+    data.each do |key, value|
+      query_string.push CGI::escape(key) + "=" + CGI::escape(value)
+    end
+    query_string.join("&")
+  end
+  
   def status_of(response)
     response[0]
   end
@@ -62,7 +78,10 @@ module RequestHelper
   def format_of(response)
     content_type = response[1]["Content-Type"]
     
-    return :xml if content_of(response).include?("<?xml") && content_type == "text/xml"
+    format = :xml   if content_of(response).include?("<?xml") && content_type == "text/xml"
+    format = :html  if content_of(response).include?("<html") && content_type == "text/html"
+    
+    format
   end
   
   def content_of(response)
