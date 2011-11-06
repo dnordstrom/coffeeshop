@@ -35,6 +35,8 @@ module CoffeeShop
         @@base = path
       end
 
+      # Controllers that are allowed to be programmatically created
+      # when handling incoming requests.
       def VALID_CONTROLLERS
         [
           'PageController',
@@ -49,6 +51,8 @@ module CoffeeShop
       configure_database
     end
 
+    # Gathers commonly used environment information, such as paths
+    # and the appropriate database file.
     def load_environment
       @@root  = File.join(File.dirname(__FILE__), '..', '..')
       @@env   = (ENV['RACK_ENV'] ? ENV['RACK_ENV'].to_sym : :development)
@@ -56,6 +60,8 @@ module CoffeeShop
       @@db    = File.join(@@root, 'db', "#{@@env}.sqlite")
     end
 
+    # Sets up connection to the database, creating the database file
+    # if it does not exist. Recreates it when in test environment.
     def configure_database
       DataMapper::Logger.new(STDOUT, :debug) if @@env === :development
       DataMapper.setup(:default, "sqlite://#{path(:db)}")
@@ -67,6 +73,7 @@ module CoffeeShop
       DataMapper.auto_migrate!
     end
 
+    # Rack application entry point.
     def call(env)
       @@base = 'http://' + env['HTTP_HOST']
       
