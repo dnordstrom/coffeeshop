@@ -1,0 +1,48 @@
+/* CoffeeShop API, version 0.1 */
+
+/* CoffeeShop constructor */
+function CoffeeShop(url) {
+  this.url = url;
+}
+
+/* CoffeeShop prototype */
+CoffeeShop.prototype = {
+  
+  /* Retrieve the browser-specific XMLHttpRequest object */
+  getXHR: function() {
+    if (typeof XMLHttpRequest == "undefined") {
+      XMLHttpRequest = function() {
+        try { return new ActiveXObject("Msxml2.XMLHTTP.6.0") }
+        catch (e) {}
+        try { return new ActiveXObject("Msxml2.XMLHTTP.3.0") }
+        catch (e) {}
+        try { return new ActiveXObject("Msxml2.XMLHTTP") }
+        catch (e) {}
+        return false;
+      }
+    }
+    
+    return new XMLHttpRequest();
+  },
+  
+  /* Get JSON data from URL via AJAX */
+  get: function(path, callback) {
+    request = this.getXHR();
+    script = document.createElement("script");
+    script.src = this.url + "/" + path;
+    script.type = "text/javascript"
+    
+    if (callback != undefined) {
+      script.onload = callback
+    }
+    
+    if (document.getElementsByTagName("head").length > 0) {
+      document.getElementsByTagName("head")[0].appendChild(script);
+    }
+  }
+}
+
+cs = new CoffeeShop("http://localhost:9292");
+window.onload = cs.get("page/sample_data", function() {
+  alert(CSData.products[1].title)
+});
