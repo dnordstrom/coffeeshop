@@ -41,8 +41,3 @@ CoffeeShop.prototype = {
     }
   }
 }
-
-cs = new CoffeeShop("http://localhost:9292");
-window.onload = cs.get("page/sample_data", function() {
-  alert(CSData.products[1].title)
-});
