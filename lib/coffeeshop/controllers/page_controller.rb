@@ -3,6 +3,7 @@ module CoffeeShop
     def handle(request)
       @request = request
       
+      return render "javascript/api.js" if request.js?
       return render 404 unless request.controller === self.class.to_s.split('::')[1]
       return render 'page/index.html' if request.id.nil?
       return render 404 unless CoffeeShop::Template.exists?("page/#{request.id}.html")

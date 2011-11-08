@@ -4,10 +4,12 @@ module CoffeeShop
     attr_accessor :id
     attr_accessor :action
     attr_accessor :format
+    attr_accessor :js
     
     def initialize(env)
       super(env)
       
+      self.js = true if path_info == "/api.js"
       path = path_info.split('/')
       
       @controller  = (path[1] || 'page').capitalize + 'Controller'              # Name of controller class to be invoked
@@ -18,6 +20,8 @@ module CoffeeShop
         strings = @id.split(".")        # Split string if format has been appended to ID in URL
         @id     = strings[0]            # ID of resource, if requested
         @format = strings[1]            # Requested format, defaults to HTML
+      else
+        @format = (@controller == "PageController" ? "html" : "json") # Set default format
       end
     end
     
@@ -31,6 +35,10 @@ module CoffeeShop
     
     def http_method
       params['_method'].nil? ? false : params['_method'].upcase
+    end
+    
+    def js?
+      js
     end
   end
 end

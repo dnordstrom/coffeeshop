@@ -20,9 +20,13 @@ module CoffeeShop
     
     # Creates a Response object from the specified view and writes it
     # to the @output variable, overwriting any existing output buffer.
+    #
+    # The @output variable contains the response that is returned
+    # at the end of the request.
     def render(view)
       view          = "page/404.html" if view == 404
       content_type  = @request.format.nil? ? "text/html" : "text/#{@request.format}"
+      content_type  = "text/javascript" if @request.format.to_sym == :json
       
       @output = CoffeeShop::Response.new(view, binding, { 'Content-Type' => content_type }).finish
     end
@@ -43,7 +47,7 @@ module CoffeeShop
       @output
     end
     
-    # Calls the block argument only if content format is HTML, specifying
+    # Calls the block argument only if requested format is HTML, specifying
     # how to respond to HTML requests.
     def respond_to_html(&block)
       if !@request.format.nil? && @request.format.to_sym === :html
@@ -53,10 +57,20 @@ module CoffeeShop
       end
     end
     
-    # Calls the block argument only if content format is XML, specifying
+    # Calls the block argument only if requested format is XML, specifying
     # how to respond to XML requests.
     def respond_to_xml(&block)
       if !@request.format.nil? && @request.format.to_sym === :xml
+        block.call
+      else
+        render 404
+      end
+    end
+    
+    # Calls the block argument only if requested format is JSON, specifying
+    # how to respond to JSON requests.
+    def respond_to_json(&block)
+      if !@request.format.nil? && @request.format.to_sym === :json
         block.call
       else
         render 404

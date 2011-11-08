@@ -80,6 +80,7 @@ module RequestHelper
     
     format = :xml   if content_of(response).include?("<?xml") && content_type == "text/xml"
     format = :html  if content_of(response).include?("<html") && content_type == "text/html"
+    format = :json  if content_of(response).include?("CSData = {}") && content_type == "text/javascript"
     
     format
   end

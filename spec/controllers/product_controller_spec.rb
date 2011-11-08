@@ -119,12 +119,12 @@ describe ProductController do
   end
   
   it "should respond to POST request with XML" do
-    response = post "/product/1"
+    response = post "/product/1.xml"
     format_of(response).should == :xml
   end
   
   it "should include product ID as XML in POST response" do
-    response = post "/product/1"
+    response = post "/product/1.xml"
     document = Nokogiri::XML( content_of(response) )
     
     product = document.at_css("product")
@@ -134,7 +134,7 @@ describe ProductController do
   end
   
   it "should include product title as XML in POST response" do
-    response = post "/product/1"
+    response = post "/product/1.xml"
     document = Nokogiri::XML( content_of(response) )
     
     title = document.at_css("title").content
@@ -142,7 +142,7 @@ describe ProductController do
   end
   
   it "should include product price as XML in POST response" do
-    response = post "/product/1"
+    response = post "/product/1.xml"
     document = Nokogiri::XML( content_of(response) )
     
     price = document.at_css("price").content.to_i
@@ -150,10 +150,16 @@ describe ProductController do
   end
   
   it "should include product description as XML in POST response" do
-    response = post "/product/1"
+    response = post "/product/1.xml"
     document = Nokogiri::XML( content_of(response) )
     
     description = document.at_css("description").content
     description.should == "Sample description"
+  end
+  
+  it "should return product data in JSON format" do
+    response = get "/product/1"
+    
+    format_of(response).should == :json
   end
 end

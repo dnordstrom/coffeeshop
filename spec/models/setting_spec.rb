@@ -20,4 +20,12 @@ describe Setting do
   it "should check if setting exists" do
     Setting.exists?("title").should be_true
   end
+  
+  it "should set the setting" do
+    setting = Setting.first(:setting => "title")
+    setting.value = "New Title"
+    setting.save
+    
+    Setting.get("title").should == "New Title"
+  end
 end
