@@ -7,26 +7,30 @@ module CoffeeShop
     # Creates the appropriate controller and calls its handle() method
     # with the request variable as an argument
     def self.handle(request)
-      controller = "#{request.path_info.split('/')[1]}"
-      controller_class = controller.capitalize + 'Controller'
-
-      unless CoffeeShop::Application.VALID_CONTROLLERS.include?(controller_class)
-        controller_class = 'PageController'
+      controller = request.path_info.split('/')[1]
+      
+      # Empty and "api.js" requests are handled by PageController
+      if controller.nil? || controller == "api.js"
+        controller = "Page"
+      else
+        controller.capitalize!
       end
 
-      controller = eval("CoffeeShop::#{controller_class}").new
+      controller += "Controller"
+      
+      controller = CoffeeShop.const_get(controller).new
       controller.handle(request)
     end
     
     # Creates a Response object from the specified view and writes it
-    # to the @output variable, overwriting any existing output buffer.
+    # to @output, overwriting any existing output buffer.
     #
     # The @output variable contains the response that is returned
     # at the end of the request.
     def render(view)
-      view          = "page/404.html" if view == 404
-      content_type  = @request.format.nil? ? "text/html" : "text/#{@request.format}"
-      content_type  = "text/javascript" if @request.format.to_sym == :json
+      view = "page/404.html" if view == 404
+      content_type = @request.format.nil? ? "text/html" : "text/#{@request.format}"
+      content_type = "text/javascript" if @request.format.to_sym == :json
       
       @output = CoffeeShop::Response.new(view, binding, { 'Content-Type' => content_type }).finish
     end

@@ -2,14 +2,14 @@
 
 /* CoffeeShop constructor */
 function CoffeeShop(url) {
-  this.url = url;
-}
+  /* Private
+    Instance, and URL to store (server-side) */
+  var instance = this;
+  var url = url;
 
-/* CoffeeShop prototype */
-CoffeeShop.prototype = {
-  
-  /* Retrieve the browser-specific XMLHttpRequest object */
-  getXHR: function() {
+  /* Privileged
+    Retrieve the browser-specific XMLHttpRequest object */
+  this.getXHR = function() {
     if (typeof XMLHttpRequest == "undefined") {
       XMLHttpRequest = function() {
         try { return new ActiveXObject("Msxml2.XMLHTTP.6.0") }
@@ -23,21 +23,52 @@ CoffeeShop.prototype = {
     }
     
     return new XMLHttpRequest();
-  },
+  };
   
-  /* Get JSON data from URL via AJAX */
-  get: function(path, callback) {
-    request = this.getXHR();
-    script = document.createElement("script");
-    script.src = this.url + "/" + path;
-    script.type = "text/javascript"
+  /* Privileged
+    Get JSON-P data from URL via AJAX */
+  this.getJSON = function(path, callback) {
+    var request = instance.getXHR();
+    var script = document.createElement("script");
+    
+    script.src = instance.url + path;
+    script.type = "text/javascript";
     
     if (callback != undefined) {
-      script.onload = callback
+      script.src += "?callback=CoffeeShop._callback"
+
+      instance._callback = function(data) {
+        callback(data);
+        instance._callback = undefined
+      };
     }
     
     if (document.getElementsByTagName("head").length > 0) {
       document.getElementsByTagName("head")[0].appendChild(script);
     }
   }
+}
+
+/* Public
+  Retrieve single object containing product data */
+CoffeeShop.prototype.getProduct = function(id) {
+  var product;
+
+  this.getJSON("/product/" + id, function(data) {
+    if (data.length > 0) product = data[0];
+  }
+
+  return product;
+}
+
+/* Public
+  Retrieve array containing all products as objects */
+CoffeeShop.prototype.getProducts = function() {
+  var products;
+
+  this.getJSON("/product/" + id, function(data) {
+    products = data;
+  }
+
+  return products;
 }

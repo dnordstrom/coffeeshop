@@ -106,7 +106,7 @@ describe ProductController do
     post "/product/3", { "description" => "New description" }
     
     product = Product.get(3)
-    description   = product.description
+    description = product.description
     product.destroy
     
     description.should == "New description"
