@@ -35,11 +35,11 @@ function CoffeeShop(url) {
     script.type = "text/javascript";
     
     if (callback != undefined) {
-      script.src += "?callback=CoffeeShop._callback"
+      script.src += "?callback=CoffeeShop.callback"
 
       instance._callback = function(data) {
         callback(data);
-        instance._callback = undefined
+        instance.callback = undefined
       };
     }
     
