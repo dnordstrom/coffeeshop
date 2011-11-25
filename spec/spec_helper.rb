@@ -3,52 +3,59 @@ require "cgi"
 module Factory
   def setting(values = {})
     default_values = {
-      :setting  => "title",
-      :value    => "CoffeeShop"
+      setting: "title",
+      value: "CoffeeShop"
     }
     CoffeeShop::Setting.create!( default_values.merge(values) )
   end
   
   def product(values = {})
     default_values = {
-      :title        => "Sample Product",
-      :price        => 1000,
-      :description  => "Sample description"
+      title: "Sample Product",
+      price: 1000,
+      description: "Sample description"
     }
     CoffeeShop::Product.create!( default_values.merge(values) )
   end
   
   def line_item(values = {})
     default_values = {
-      :price      => 1000,
-      :quantity   => 1,
-      :product_id => 1,
-      :order_id   => 1
+      price: 1000,
+      quantity: 1,
+      product_id: 1,
+      order_id: 1
     }
     CoffeeShop::LineItem.create!( default_values.merge(values) )
   end
 
   def address(values = {})
     default_values = {
-      :first_name   => "John",
-      :last_name    => "Doe",
-      :address      => "Sample Street 123",
-      :city         => "Stockholm",
-      :zip_code     => "12345",
-      :country      => "SE",
-      :phone_number => "0123456789"
+      first_name: "John",
+      last_name: "Doe",
+      address: "Sample Street 123",
+      city: "Stockholm",
+      zip_code: "12345",
+      country: "SE",
+      phone_number: "0123456789"
     }
     CoffeeShop::Address.create!( default_values.merge(values) )
   end
 
   def order(values = {})
     default_values = {
-      :status           => "checkout",
-      :billing_address  => address(),
-      :shipping_address => address(),
-      :line_items       => [ line_item() ]
+      status: "checkout",
+      billing_address: address(),
+      shipping_address: address(),
+      line_items: [ line_item() ]
     }
     CoffeeShop::Order.create!( default_values.merge(values) )
+  end
+
+  def user(values ={})
+    default_values = {
+      email_address: "a@bcd.com"
+    }
+    CoffeeShop::User.create!( default_values.merge(values) )
   end
 end
 
