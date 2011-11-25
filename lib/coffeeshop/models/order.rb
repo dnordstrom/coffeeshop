@@ -4,11 +4,19 @@ module CoffeeShop
 
     property :id, Serial
     property :status, String
+    
+    belongs_to :billing_address, "CoffeeShop::Address",
+      :parent_key => [ :id ],
+      :child_key => [ :billing_address_id ]
 
-    has 1, :billing_address
-    has 1, :shipping_address
-    has 1, :customer
+    belongs_to :shipping_address, "CoffeeShop::Address",
+      :parent_key => [ :id ],
+      :child_key => [ :shipping_address_id ]
+
+    #has 1, :user
     has n, :line_items
-    belongs_to :shop
+    #belongs_to :shop
+
+    validates_presence_of :line_items, :status
   end
 end

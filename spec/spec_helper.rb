@@ -17,6 +17,38 @@ module Factory
     }
     CoffeeShop::Product.create!( default_values.merge(values) )
   end
+  
+  def line_item(values = {})
+    default_values = {
+      :price      => 1000,
+      :quantity   => 1,
+      :product_id => 1,
+      :order_id   => 1
+    }
+    CoffeeShop::LineItem.create!( default_values.merge(values) )
+  end
+
+  def address(values = {})
+    default_values = {
+      :first_name   => "John",
+      :last_name    => "Doe",
+      :address      => "Sample Street 123",
+      :city         => "Stockholm",
+      :zip_code     => "12345",
+      :country      => "SE",
+      :phone_number => "0123456789"
+    }
+    CoffeeShop::Address.create!( default_values.merge(values) )
+  end
+
+  def order(values = {})
+    default_values = {
+      :status           => "checkout",
+      :billing_address  => address(),
+      :shipping_address => address()
+    }
+    CoffeeShop::Order.create!( default_values.merge(values) )
+  end
 end
 
 module SpecHelper

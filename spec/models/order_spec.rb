@@ -11,6 +11,14 @@ describe Order do
   end
 
   it "should require at least one line item" do
-    order(:line_items => nil).should_not be_valid
+    order().should_not be_valid
+  end
+
+  it "should require an order status" do
+    order = order(
+      :status => nil,
+      :line_items => [ line_item() ]
+    )
+    order.should_not be_valid
   end
 end
