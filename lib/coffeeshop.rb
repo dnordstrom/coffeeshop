@@ -1,4 +1,6 @@
 # Dependencies
+require 'rubygems'
+require 'bundler/setup'
 require 'erb'
 require 'dm-core'
 require 'dm-sqlite-adapter'

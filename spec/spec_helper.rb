@@ -45,7 +45,8 @@ module Factory
     default_values = {
       :status           => "checkout",
       :billing_address  => address(),
-      :shipping_address => address()
+      :shipping_address => address(),
+      :line_items       => [ line_item() ]
     }
     CoffeeShop::Order.create!( default_values.merge(values) )
   end

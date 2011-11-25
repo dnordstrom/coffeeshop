@@ -1,0 +1,6 @@
+CSData = {};
+CSData.products = [];
+
+<% Product.all.each do |product| %>
+  CSData.products.push(<%= product.to_json %>);
+<% end %>
