@@ -53,7 +53,9 @@ module Factory
 
   def user(values ={})
     default_values = {
-      email_address: "a@bcd.com"
+      email_address: "a@bcd.com",
+      password_salt: "TEST",
+      password_hash: "TEST"
     }
     CoffeeShop::User.create!( default_values.merge(values) )
   end
