@@ -3,7 +3,7 @@ module CoffeeShop
     include DataMapper::Resource
 
     property :id, Serial
-    property :status, String
+    property :status, String, required: true
     
     belongs_to :billing_address, "CoffeeShop::Address",
       :parent_key => [ :id ],
@@ -13,10 +13,10 @@ module CoffeeShop
       :parent_key => [ :id ],
       :child_key => [ :shipping_address_id ]
 
-    #has 1, :user
+    has 1, :user, "User"
     has n, :line_items
-    #belongs_to :shop
-
-    validates_presence_of :line_items, :status
+    belongs_to :shop
+    
+    validates_presence_of :line_items, :user, :shop
   end
 end

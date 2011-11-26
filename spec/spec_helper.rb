@@ -59,6 +59,13 @@ module Factory
     }
     CoffeeShop::User.create!( default_values.merge(values) )
   end
+
+  def shop(values = {})
+    default_values = {
+      domain: "nintera.com"
+    }
+    CoffeeShop::Shop.create!( default_values.merge(values) )
+  end
 end
 
 module SpecHelper

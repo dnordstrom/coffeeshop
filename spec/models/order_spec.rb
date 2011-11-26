@@ -29,4 +29,8 @@ describe Order do
   it "should require a reference to a user" do
     order(user: nil).should_not be_valid
   end
+
+  it "should require a reference to a shop" do
+    order(shop: nil).should_not be_valid
+  end
 end
