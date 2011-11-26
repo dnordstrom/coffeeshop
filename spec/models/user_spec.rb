@@ -18,7 +18,9 @@ describe User do
     user(password_salt: nil).should_not be_valid
   end
 
-  it "should generate a new 256-bit password salt" do
-    print user().new_salt!.inspect
+  it "should set a new password salt" do
+    user = user(password_salt: "OLD_SALT")
+    user.new_salt!
+    user.password_salt.should_not == "OLD_SALT"
   end
 end
