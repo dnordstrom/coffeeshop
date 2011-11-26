@@ -8,6 +8,7 @@ require "dm-migrations"
 require "dm-validations"
 require "rack"
 require "nokogiri"
+require "digest/sha2"
 
 # NI toolkit components
 require_relative "../lib/ni/helpers/user_helper.rb"

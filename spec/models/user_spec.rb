@@ -1,3 +1,5 @@
+require "digest/sha2"
+
 require_relative "../../lib/coffeeshop"
 require_relative "../spec_helper"
 
@@ -22,5 +24,14 @@ describe User do
     user = user(password_salt: "OLD_SALT")
     user.new_salt!
     user.password_salt.should_not == "OLD_SALT"
+  end
+
+  it "should set a new password hash using password and salt" do
+    user = user()
+    user.new_salt!
+    user.new_hash!("test")
+
+    hash = Digest::SHA256.hexdigest("password=test&salt=#{user.password_salt}")
+    user.password_hash.should == hash
   end
 end
