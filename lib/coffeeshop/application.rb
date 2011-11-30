@@ -35,6 +35,14 @@ module CoffeeShop
         @@base = path
       end
 
+      def session
+        @@session
+      end
+
+      def session=(session)
+        @@session = session
+      end
+
       # Controllers that are allowed to be programmatically created
       # when handling incoming requests.
       def VALID_CONTROLLERS
@@ -71,10 +79,12 @@ module CoffeeShop
 
     def create_database
       DataMapper.auto_migrate!
+      # Rack::Session::DataMapperSession.auto_upgrade!
     end
 
     # Rack application entry point.
     def call(env)
+      @@session = env['rack.session'] || { }
       @@base = 'http://' + env['HTTP_HOST']
       
       CoffeeShop::Controller.handle( CoffeeShop::Request.new(env) )

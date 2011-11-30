@@ -7,15 +7,15 @@ require "dm-sqlite-adapter"
 require "dm-migrations"
 require "dm-validations"
 require "rack"
+require "rack-datamapper-session"
 require "nokogiri"
 require "digest/sha2"
-
-# NI toolkit components
-require_relative "../lib/ni/helpers/user_helper.rb"
 
 # Helpers
 require_relative "coffeeshop/helpers/path_helper"
 require_relative "coffeeshop/helpers/setting_helper"
+require_relative "coffeeshop/helpers/session_helper"
+require_relative "coffeeshop/helpers/user_helper"
 
 # Application components
 require_relative "coffeeshop/application"

@@ -13,8 +13,8 @@ module CoffeeShop
       :parent_key => [ :id ],
       :child_key => [ :shipping_address_id ]
 
-    has 1, :user, "User"
     has n, :line_items
+    belongs_to :user
     belongs_to :shop
     
     validates_presence_of :line_items, :user, :shop

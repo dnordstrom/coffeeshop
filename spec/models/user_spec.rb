@@ -34,4 +34,23 @@ describe User do
     hash = Digest::SHA256.hexdigest("password=test&salt=#{user.password_salt}")
     user.password_hash.should == hash
   end
+
+  it "should authenticate user" do
+    user = user(email_address: "abc@de.com")
+    user.new_salt!
+    user.new_hash!("test")
+    user.save
+
+    User.authenticate("abc@de.com", "test").should === user
+  end
+
+  it "should populate the user_id session variable" do
+    user = user(email_address: "abc@def.com")
+    user.new_salt!
+    user.new_hash!("test")
+    user.save
+
+    User.authenticate("abc@def.com", "test")
+    CoffeeShop::Application.session[:user_id].should === user.id
+  end
 end
