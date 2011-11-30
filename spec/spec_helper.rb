@@ -51,7 +51,7 @@ module Factory
     CoffeeShop::Order.create!( default_values.merge(values) )
   end
 
-  def user(values ={})
+  def user(values = {})
     default_values = {
       email_address: "a@bcd.com",
       password_salt: "TEST",
@@ -117,7 +117,7 @@ module RequestHelper
   def parse(data)
     query_string = []
     data.each do |key, value|
-      query_string.push CGI.escape(key) + "=" + CGI.escape(value)
+      query_string.push CGI.escape(key.to_s) + "=" + CGI.escape(value)
     end
     query_string.join("&")
   end

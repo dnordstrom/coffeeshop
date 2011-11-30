@@ -12,9 +12,12 @@ module CoffeeShop
       self.js = true if path_info == "/api.js"
       path = path_info.split('/')
       
-      @controller  = (path[1] || 'page').capitalize + 'Controller'              # Name of controller class to be invoked
-      @id          =  path[2]                                                   # ID of resource, if requested
-      @action      =  path[3].nil? ? nil : (path[3].split('.')[0] || path[3])   # Specified action
+      # Controller class
+      @controller = (path[1] || 'page').capitalize + 'Controller'
+      # ID of resource
+      @id =  path[2]
+      # Specified action
+      @action = path[3].nil? ? nil : (path[3].split('.')[0] || path[3])
       
       if !@id.nil? && @id.include?(".")
         strings = @id.split(".")        # Split string if format has been appended to ID in URL

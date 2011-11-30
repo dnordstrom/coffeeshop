@@ -17,10 +17,9 @@ module CoffeeShop
       else
         hash = user.new_hash(password)
         user = false unless user.password_hash === hash
+        session(:user_id, user.id)
       end
        
-      session(:user_id, user.id)
-
       user
     end
   end

@@ -5,11 +5,11 @@ module CoffeeShop
     attr_accessor :output
 
     # Creates the appropriate controller and calls its handle() method
-    # with the request variable as an argument
+    # with the request variable as an argument.
     def self.handle(request)
       controller = request.path_info.split('/')[1]
       
-      # Empty and "api.js" requests are handled by PageController
+      # Empty and "api.js" requests are handled by PageController.
       if controller.nil? || controller == "api.js"
         controller = "Page"
       else
@@ -84,6 +84,11 @@ module CoffeeShop
     # Shortcut for the @request.params variable containing request data
     def params
       @request.params
+    end
+
+    # Shoortcut to specific request param
+    def param(key)
+      @request.params[key.to_s]
     end
   end
 end
