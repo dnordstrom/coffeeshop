@@ -28,6 +28,7 @@ module CoffeeShop
     # The @output variable contains the response that is returned
     # at the end of the request.
     def render(view)
+      print @request.format.inspect
       view = "page/404.html" if view == 404
       content_type = @request.format.nil? ? "text/html" : "text/#{@request.format}"
       content_type = "text/javascript" if @request.format.to_sym == :json

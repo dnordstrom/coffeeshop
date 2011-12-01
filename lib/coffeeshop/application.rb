@@ -71,6 +71,7 @@ module CoffeeShop
     # Sets up connection to the database, creating the database file
     # if it does not exist. Recreates it when in test environment.
     def configure_database
+      DataMapper.finalize
       DataMapper::Logger.new(STDOUT, :debug) if @@env === :development
       DataMapper.setup(:default, "sqlite://#{path(:db)}")
 
@@ -79,7 +80,6 @@ module CoffeeShop
 
     def create_database
       DataMapper.auto_migrate!
-      # Rack::Session::DataMapperSession.auto_upgrade!
     end
 
     # Rack application entry point.

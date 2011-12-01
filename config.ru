@@ -1,9 +1,12 @@
 require './lib/coffeeshop.rb'
 
-app = Rack::Session::DataMapper.new(
+app = Rack::Session::Cookie.new(
   CoffeeShop::Application.new,
+  key: "key",
   domain: "localhost",
-  expire_after: 86400
+  path: "/",
+  expire_after: 86400,
+  secret: "ldYmvEpfnDE83hbT4"
 )
 
 run app

@@ -1,0 +1,16 @@
+<%= part "head.html" %>
+
+<h1>Log in</h1>
+
+<form action="<%= path(:root, '/session') %>">
+  
+  <label for="email_address">E-mail address</label>
+  <input type="email" id="email_address" placeholder="john@doe.com">
+
+  <label for="password">Password</label>
+  <input type="password" id="password">
+  
+  <input type="submit" value="Log in">
+</form>
+
+<%= part "foot.html" %>

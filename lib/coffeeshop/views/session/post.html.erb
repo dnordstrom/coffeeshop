@@ -1,1 +1,5 @@
-Hi there
+<%= part "foot.html" %>
+
+<% if @user.nil? %>
+  Successfully logged in.
+<% else %>

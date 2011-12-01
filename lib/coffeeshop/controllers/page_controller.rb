@@ -2,6 +2,10 @@ module CoffeeShop
   class PageController < CoffeeShop::Controller
     def handle(request)
       @request = request
+
+      # Default to HTML content-type for this controller since
+      # it does not deal with DB resources
+      @request.format = "html"      
       
       return render "javascript/api.js" if request.js?
       return render 404 unless request.controller === self.class.to_s.split('::')[1]

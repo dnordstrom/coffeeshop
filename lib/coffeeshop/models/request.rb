@@ -7,33 +7,33 @@ module CoffeeShop
     attr_accessor :js
     
     def initialize(env)
-      super(env)
+      super(env) # Initialize Rack::Request
       
       self.js = true if path_info == "/api.js"
       path = path_info.split('/')
       
       # Controller class
-      @controller = (path[1] || 'page').capitalize + 'Controller'
+      @controller = (path[1] || "page").capitalize + "Controller"
+
       # ID of resource
       @id =  path[2]
+
       # Specified action
-      @action = path[3].nil? ? nil : (path[3].split('.')[0] || path[3])
+      @action = path[3].nil? ? nil : (path[3].split(".")[0] || path[3])
       
       if !@id.nil? && @id.include?(".")
         strings = @id.split(".")        # Split string if format has been appended to ID in URL
         @id     = strings[0]            # ID of resource, if requested
         @format = strings[1]            # Requested format, defaults to HTML
-      else
-        @format = (@controller == "PageController" ? "html" : "json") # Set default format
       end
     end
     
     def put?
-      http_method == 'PUT'
+      http_method == "PUT"
     end
     
     def delete?
-      http_method == 'DELETE'
+      http_method == "DELETE"
     end
     
     def http_method

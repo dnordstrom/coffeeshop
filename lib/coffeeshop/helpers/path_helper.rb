@@ -1,10 +1,10 @@
 module CoffeeShop
   module PathHelper
-    def path(path)
-      return CoffeeShop::Application.root   if path.to_sym === :root
-      return CoffeeShop::Application.db     if path.to_sym === :db
-      return CoffeeShop::Application.views  if path.to_sym === :views
-      return CoffeeShop::Application.base   if path.to_sym === :base
+    def path(path, append = "")
+      return CoffeeShop::Application.root  + append if path.to_sym === :root
+      return CoffeeShop::Application.db    + append if path.to_sym === :db
+      return CoffeeShop::Application.views + append if path.to_sym === :views
+      return CoffeeShop::Application.base  + append if path.to_sym === :base
     end
     
     def path_to(resource)
