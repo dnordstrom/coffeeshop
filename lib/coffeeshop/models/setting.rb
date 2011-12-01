@@ -2,9 +2,9 @@ module CoffeeShop
   class Setting
     include DataMapper::Resource
 
-    property :id,       Serial
-    property :setting,  String
-    property :value,    String
+    property :id, Serial
+    property :setting, String
+    property :value, String
     
     class << self
       def get(setting)
