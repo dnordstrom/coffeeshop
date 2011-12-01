@@ -1,6 +1,7 @@
 module CoffeeShop
   class Controller
     include CoffeeShop::PathHelper
+    include CoffeeShop::AssetHelper
 
     attr_accessor :output
 
@@ -16,9 +17,9 @@ module CoffeeShop
         controller.capitalize!
       end
 
-      controller += "Controller"
-      
+      controller += "Controller"     
       controller = CoffeeShop.const_get(controller).new
+
       controller.handle(request)
     end
     
@@ -28,10 +29,17 @@ module CoffeeShop
     # The @output variable contains the response that is returned
     # at the end of the request.
     def render(view)
-      print @request.format.inspect
       view = "page/404.html" if view == 404
-      content_type = @request.format.nil? ? "text/html" : "text/#{@request.format}"
-      content_type = "text/javascript" if @request.format.to_sym == :json
+      
+      # Set content type based on requested format.
+      if @request.format.nil?
+        # Default to HTML content-type if request format isn't specified.
+        # This should never occur, as Request sets a default format.
+        content_type = "text/html"
+      else
+        content_type = (@request.format.to_sym === :json) ?
+          "text/javascript" : "text/#{@request.format}"
+      end
       
       @output = CoffeeShop::Response.new(view, binding, { 'Content-Type' => content_type }).finish
     end

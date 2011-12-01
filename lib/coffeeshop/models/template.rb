@@ -10,8 +10,8 @@ module CoffeeShop
         ERB.new(content).result(binding)
       end
 
-      def load_404
-        load('page/404.html')
+      def load_404(binding = nil)
+        load("page/404.html", binding)
       end
 
       def get_path(view)

@@ -10,7 +10,7 @@ module CoffeeShop
         @status = 404
         super('', @status, header)
         
-        write Template.load_404
+        write Template.load_404(binding)
       end
     end
   end

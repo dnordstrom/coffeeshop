@@ -1,9 +1,10 @@
 module CoffeeShop
   class ProductController < CoffeeShop::Controller
     include PathHelper
+    
     def handle(request)
       @request = request
-      
+
       respond
     end
     

@@ -16,6 +16,7 @@ require_relative "coffeeshop/helpers/path_helper"
 require_relative "coffeeshop/helpers/setting_helper"
 require_relative "coffeeshop/helpers/session_helper"
 require_relative "coffeeshop/helpers/user_helper"
+require_relative "coffeeshop/helpers/asset_helper"
 
 # Application components
 require_relative "coffeeshop/application"
@@ -26,6 +27,7 @@ require_relative "coffeeshop/controllers/page_controller"
 require_relative "coffeeshop/controllers/setting_controller"
 require_relative "coffeeshop/controllers/product_controller"
 require_relative "coffeeshop/controllers/session_controller"
+require_relative "coffeeshop/controllers/asset_controller"
 
 # Models
 require_relative "coffeeshop/models/product"

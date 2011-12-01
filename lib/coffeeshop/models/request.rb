@@ -21,10 +21,14 @@ module CoffeeShop
       # Specified action
       @action = path[3].nil? ? nil : (path[3].split(".")[0] || path[3])
       
+      # Check if IS contains dot-separated request format
       if !@id.nil? && @id.include?(".")
         strings = @id.split(".")        # Split string if format has been appended to ID in URL
         @id     = strings[0]            # ID of resource, if requested
         @format = strings[1]            # Requested format, defaults to HTML
+      else
+        # Set format to JSON if undefined.
+        @format = :json
       end
     end
     
