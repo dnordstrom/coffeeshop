@@ -7,7 +7,10 @@ module CoffeeShop
     end
 
     def get
-      render "asset/#{@request.format}/#{@request.id}"
+      format = @request.format
+      file = @request.id
+
+      render "asset/#{format}/#{file}.#{format}"
     end
   end
 end

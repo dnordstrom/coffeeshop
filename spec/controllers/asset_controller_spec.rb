@@ -13,7 +13,7 @@ describe AssetController do
 
   it "should respond with application.css file" do
     response = get "/asset/application.css"
-    print response.inspect
+    
     content_of(response).include?("body {").should be_true
   end
 end
