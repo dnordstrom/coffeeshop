@@ -14,7 +14,7 @@ module CoffeeShop
     def link_to_page(title, page)
       '<a href="' +
         CoffeeShop::Application.base +
-        '/' + 'page/' page.to_s +
+        '/' + 'page/' + page.to_s +
         '">' + title + '</a>'
     end
   end

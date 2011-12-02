@@ -2,6 +2,7 @@ module CoffeeShop
   class Controller
     include CoffeeShop::PathHelper
     include CoffeeShop::AssetHelper
+    include CoffeeShop::MarkupHelper
 
     attr_accessor :output
 
