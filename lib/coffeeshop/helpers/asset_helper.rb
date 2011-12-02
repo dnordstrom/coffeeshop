@@ -3,27 +3,27 @@ module CoffeeShop
     
     # NOTE: AssetHelper will generate HTML 5 markup only.
     
-    def stylesheet(path, attributes = {})
-      default_attributes = {
+    def stylesheet(file, attributes = {})
+      attributes = {
         rel: "stylesheet",
-        href: path
-      }.merge!(attributes)
+        href: CoffeeShop::Application.base + "/asset/#{file}"
+      }.merge(attributes)
 
-      open_tag("link", attributes)
+      open_tag(:link, attributes)
     end
 
-    def javascript(path, attributes = {})
-      default_attributes = {
-        src: path
-      }.merge!(attributes)
+    def javascript(file, attributes = {})
+      attributes = {
+        src: CoffeeShop::Application.base + "/asset/#{file}"
+      }.merge(attributes)
 
-      open_tag("script", attributes) + close_tag(:script)
+      open_tag(:script, attributes) + close_tag(:script)
     end
 
-    def attributes(attributes)
+    def attribute_string(attributes)
       markup = ""
 
-      options.each do |key, value|
+      attributes.each do |key, value|
         markup += " #{key}=\"#{value}\""
       end
 
@@ -31,11 +31,11 @@ module CoffeeShop
     end
 
     def open_tag(tag, attributes = {})
-      "<#{tag}" + attributes + ">"
+      "<#{tag.to_s}" + attribute_string(attributes) + ">"
     end
 
     def close_tag(tag)
-      "</#{tag}>"
+      "</#{tag.to_s}>"
     end
   end
 end

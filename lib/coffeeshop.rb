@@ -17,6 +17,7 @@ require_relative "coffeeshop/helpers/setting_helper"
 require_relative "coffeeshop/helpers/session_helper"
 require_relative "coffeeshop/helpers/user_helper"
 require_relative "coffeeshop/helpers/asset_helper"
+require_relative "coffeeshop/helpers/markup_helper"
 
 # Application components
 require_relative "coffeeshop/application"
