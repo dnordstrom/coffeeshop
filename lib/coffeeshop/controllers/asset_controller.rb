@@ -1,5 +1,5 @@
 module CoffeeShop
-  class AssetController
+  class AssetController < CoffeeShop::Controller
     def handle(request)
       @request = request
 
