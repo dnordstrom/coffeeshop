@@ -35,5 +35,20 @@ module CoffeeShop
         
       markup + '>'
     end
+
+    def begin_form(model, method, attributes)
+      markup = '<form action="' +
+        CoffeeShop::Application.base + '/' + model.to_s + '"' + ' method="post"'
+
+      attributes.each do |key, value|
+        markup += ' ' + key.to_s + '="' + value + '"'
+      end
+
+      markup + '>'
+    end
+
+    def end_form
+      '</form>'
+    end
   end
 end
