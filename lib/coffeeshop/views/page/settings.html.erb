@@ -2,6 +2,9 @@
 
 <section>
   <h1>Settings</h1>
+  
+  
+
   <ul>
     <% CoffeeShop::Setting.all.each do |setting| %>
       <li><strong><%= setting.setting.capitalize %>:</strong> <%= setting.value %> <a href="<%= path_to_setting(setting) %>">Edit</a></li>

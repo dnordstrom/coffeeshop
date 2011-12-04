@@ -15,7 +15,7 @@ module CoffeeShop
       '<a href="' +
         CoffeeShop::Application.base +
         '/' + 'page/' + page.to_s +
-        '">' + title + '</a>'
+        '" title="' + title + '">' + title + '</a>'
     end
 
     def button_to(value, controller, method)
@@ -23,6 +23,17 @@ module CoffeeShop
         '<input type="hidden" name="_method" id="_method" value="' + method.to_s + '">' +
         '<input type="submit" value="' + value + '">' +
         '</form>'
+    end
+
+    def text_field(name, attributes)
+      markup =
+        '<input type="text" name="' + name.to_s + '" id="' + name.to_s + '"'
+
+      attributes.each do |key, value|
+        markup += ' ' + key.to_s + '="' + value.to_s + '"'
+      end
+        
+      markup + '>'
     end
   end
 end
