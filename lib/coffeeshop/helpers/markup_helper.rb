@@ -17,5 +17,12 @@ module CoffeeShop
         '/' + 'page/' + page.to_s +
         '">' + title + '</a>'
     end
+
+    def button_to(value, controller, method)
+      '<form action="' + CoffeeShop::Application.base + '/' + controller.to_s + '" method="post">' +
+        '<input type="hidden" name="_method" id="_method" value="' + method.to_s + '">' +
+        '<input type="submit" value="' + value + '">' +
+        '</form>'
+    end
   end
 end

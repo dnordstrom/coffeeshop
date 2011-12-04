@@ -8,6 +8,7 @@
   <body>
     <header>
       <h1>CoffeeShop Administration</h1>
+      <%= button_to "Log out", :session, :delete %>
     </header>
     
     <nav>
@@ -16,6 +17,16 @@
           <%= link_to_page "Home", :index %>
         </li>
         <li>
-          
+          <%= link_to_page "Orders", :orders %>
+        </li>
+        <li>
+          <%= link_to_page "Products", :products %>
+        </li>
+        <li>
+          <%= link_to_page "Customers", :customers %>
+        </li>
+        <li>
+          <%= link_to_page "Settings", :settings %>
         </li>
       </ul>
+    </nav>
