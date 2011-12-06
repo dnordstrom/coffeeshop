@@ -2,6 +2,15 @@ GEM
   remote: http://rubygems.org/
   specs:
     addressable (2.2.6)
+    capybara (1.1.2)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      selenium-webdriver (~> 2.0)
+      xpath (~> 0.1.4)
+    childprocess (0.2.3)
+      ffi (~> 1.0.6)
     data_objects (0.10.7)
       addressable (~> 2.1)
     diff-lcs (1.1.3)
@@ -19,10 +28,15 @@ GEM
       dm-core (~> 1.2.0)
     do_sqlite3 (0.10.7)
       data_objects (= 0.10.7)
+    ffi (1.0.11)
+    mime-types (1.17.2)
+    multi_json (1.0.4)
     nokogiri (1.5.0)
     rack (1.3.5)
     rack-datamapper-session (0.3)
       dm-core (>= 0.9.10)
+      rack (>= 1.0)
+    rack-test (0.6.1)
       rack (>= 1.0)
     rspec (2.7.0)
       rspec-core (~> 2.7.0)
@@ -32,11 +46,20 @@ GEM
     rspec-expectations (2.7.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.7.0)
+    rubyzip (0.9.5)
+    selenium-webdriver (2.14.0)
+      childprocess (>= 0.2.1)
+      ffi (~> 1.0.9)
+      multi_json (~> 1.0.4)
+      rubyzip
+    xpath (0.1.4)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  capybara
   dm-core
   dm-migrations
   dm-sqlite-adapter

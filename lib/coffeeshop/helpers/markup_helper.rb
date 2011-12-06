@@ -22,7 +22,9 @@ module CoffeeShop
       markup += close_tag(:a)
     end
 
-    def button_to(value, controller, method)
+    # NOTE: Attributes argument specified submit button
+    # attributes, not form attributes.
+    def button_to(value, controller, method, attributes = {})
       form_attributes = {
         action: CoffeeShop::Application.base + "/#{controller.to_s}",                
         method: "post",
@@ -30,25 +32,53 @@ module CoffeeShop
       
       markup = open_tag(:form, form_attributes)
       markup += hidden_field(:_method, { value: method.to_s })
-      markup += submit_button(value)
+      markup += submit_button(value, attributes)
       markup += close_tag(:form)
     end
 
-    def text_field(name, attributes = {})
+    def text_field(id, attributes = {})
+      name = name_attribute_from(id)
+      id = id_attribute_from(id)
+      
       attributes = {
         type: "text",
-        name: name.to_s,
-        id: name.to_s
+        name: name,
+        id: id
       }.merge(attributes)
       
       open_tag(:input, attributes)
     end
 
-    def hidden_field(name, attributes = {})
-      aatributes = {
-        type: "text",
-        name: name.to_s,
-        id: name.to_s
+    def text_area(id, attributes = {})
+      name = name_attribute_from(id)
+      id = id_attribute_from(id)
+      
+      attributes = {
+        name: name,
+        id: id
+      }.merge(attributes)
+      
+      open_tag(:textarea, attributes) + close_tag(:textarea)
+    end
+
+    def label(text, target, attributes = {})
+      target = name_attribute_from(target)
+      
+      attributes = {
+        :for => target
+      }.merge(attributes)
+      
+      open_tag(:label, attributes) + text + close_tag(:label)
+    end
+
+    def hidden_field(id, attributes = {})
+      name = name_attribute_from(id)
+      id = id_attribute_from(id)
+      
+      attributes = {
+        type: "hidden",
+        name: name,
+        id: id
       }.merge(attributes)
 
       open_tag(:input, attributes)
@@ -68,7 +98,7 @@ module CoffeeShop
       # "case model" will check the type of the model argument.
       case model
       when Symbol
-        action = mode.to_s
+        action = model.to_s
       when Class
         action = model.class.downcase
       end
@@ -104,6 +134,24 @@ module CoffeeShop
 
     def close_tag(tag)
       "</#{tag.to_s}>"
+    end
+
+    def name_attribute_from(name)
+      case name
+      when Array
+        name[0].to_s + "[#{name[1].to_s}]" if name.length === 2
+      else
+        name.to_s
+      end
+    end
+
+    def id_attribute_from(id)
+      case id
+      when Array
+        "#{id[0].to_s}_#{id[1].to_s}" if id.length === 2
+      else
+        id.to_s
+      end
     end
   end
 end

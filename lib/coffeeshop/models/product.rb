@@ -3,6 +3,7 @@ module CoffeeShop
     include DataMapper::Resource
     
     property :id, Serial
+    property :sku, String
     property :title, String
     property :price, Integer
     property :description, Text

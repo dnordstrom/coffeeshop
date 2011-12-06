@@ -16,4 +16,12 @@ describe PageController do
     
     content_of(response).include?("/* CoffeeShop API").should be_true
   end
+
+  context "when instance method exists with same name as requested page" do
+    it "should call the instance method for page" do
+      PageController.any_instance.should_receive(:products).and_return([])
+
+      response = get "/page/products"
+    end
+  end
 end

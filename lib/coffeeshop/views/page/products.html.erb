@@ -1,0 +1,36 @@
+<%= part "head.html" %>
+
+<section>
+  <h1>Products</h1>
+
+  <table cellspacing="0">
+    <thead>
+      <th>Title</th>
+      <th>SKU</th>
+      <th>Price</th>
+    </thead>
+    <tbody>
+      <% Product.all.each do |product| %>
+        <th><%= product.title %></th>
+        <th><%= product.sku %></th>
+        <th><%= product.price %></th>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= begin_form :product, :post %>
+    <%= label "Title", [ :product, :title ] %>
+    <%= text_field [ :product, :title ] %>
+
+    <%= label "SKU", [ :product, :sku ] %>
+    <%= text_field [ :product, :sku ] %>
+
+    <%= label "Price", [ :product, :price ] %>
+    <%= text_field [ :product, :price ] %>
+
+    <%= label "Description", [ :product, :description ] %>
+    <%= text_area [ :product, :description ] %>
+  <%= end_form %>
+</section>
+
+<%= part "foot.html" %>

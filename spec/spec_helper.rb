@@ -1,4 +1,5 @@
 require "cgi"
+require "capybara/rspec"
 
 module Factory
   def setting(values = {})

@@ -21,12 +21,21 @@ module CoffeeShop
       # Template does not exist, render 404.html.
       return render 404 unless CoffeeShop::Template.exists?("page/#{request.id}.html")
       
+      # If method exists with same name as requested
+      # page, call it. This way we can set up instance
+      # variables for specific pages.
+      send(@request.id) if !@request.id.nil? && respond_to?(@request.id)
+
       # Calling requested HTTP method
       respond
     end
     
     def get
       respond_to_html { render "page/#{@request.id}.html" }
+    end
+
+    def products
+      @products = Product.all
     end
   end
 end
