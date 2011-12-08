@@ -5,6 +5,7 @@ module CoffeeShop
     include CoffeeShop::MarkupHelper
 
     attr_accessor :output
+    attr_accessor :request
 
     # Creates the appropriate controller and calls its handle() method
     # with the request variable as an argument.
@@ -20,6 +21,7 @@ module CoffeeShop
 
       controller += "Controller"     
       controller = CoffeeShop.const_get(controller).new
+      controller.request = request
 
       controller.handle(request)
     end
@@ -61,16 +63,20 @@ module CoffeeShop
       @output
     end
     
+    # NOTE: Legacy code; now using respond_to :format
+    #
     # Calls the block argument only if requested format is HTML, specifying
     # how to respond to HTML requests.
     def respond_to_html(&block)
-      if !@request.format.nil? && @request.format.to_sym === :html
+      if @request.format.nil? || @request.format.to_sym === :html
         block.call
       else
         render 404
       end
     end
     
+    # NOTE: Legacy code; now using respond_to :format
+    #
     # Calls the block argument only if requested format is XML, specifying
     # how to respond to XML requests.
     def respond_to_xml(&block)
@@ -81,6 +87,8 @@ module CoffeeShop
       end
     end
     
+    # NOTE: Legacy code; now using respond_to :format
+    #
     # Calls the block argument only if requested format is JSON, specifying
     # how to respond to JSON requests.
     def respond_to_json(&block)
@@ -90,13 +98,23 @@ module CoffeeShop
         render 404
       end
     end
+
+    def respond_to(format)
+      if block_given?
+        yield if @request.format.to_sym === format.to_sym
+      end
+    end
+
+    def redirect_to(*args)
+      # Respond with 302 Redirect status     
+    end
     
     # Shortcut for the @request.params variable containing request data
     def params
       @request.params
     end
 
-    # Shoortcut to specific request param
+    # Shortcut to specific request param
     def param(key)
       @request.params[key.to_s]
     end

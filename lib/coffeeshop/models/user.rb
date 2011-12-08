@@ -5,7 +5,8 @@ module CoffeeShop
     extend CoffeeShop::SessionHelper
     
     property :id, Serial
-    property :email_address, String, required: true, format: :email_address
+    property :email_address, String, required: true, format: :email_address,
+                                     unique: true
     property :password_salt, String, required: true, length: 64
     property :password_hash, String, required: true, length: 64
 
@@ -17,7 +18,6 @@ module CoffeeShop
       else
         hash = user.new_hash(password)
         user = false unless user.password_hash === hash
-        session(:user_id, user.id)
       end
        
       user

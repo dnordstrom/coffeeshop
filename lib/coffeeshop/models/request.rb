@@ -27,8 +27,8 @@ module CoffeeShop
         @id     = strings[0]            # ID of resource, if requested
         @format = strings[1]            # Requested format, defaults to HTML
       else
-        # Set format to JSON if undefined.
-        @format = :json
+        # Set format to HTML if undefined.
+        @format = :html
       end
     end
     

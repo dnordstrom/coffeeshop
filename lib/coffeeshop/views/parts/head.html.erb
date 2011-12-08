@@ -3,7 +3,10 @@
   <head>
     <meta charset="utf-8">
     <title>CoffeeShop Administration</title>
-    <%= stylesheet "application.css" %>
+    <%=
+      stylesheet "reset.css"
+      stylesheet "application.css"
+    %>
   </head>
   <body>
     <header>
@@ -21,6 +24,9 @@
         </li>
         <li>
           <%= link_to "Products", :products %>
+        </li>
+        <li>
+          <%= link_to "Users", :users %>
         </li>
         <li>
           <%= link_to "Customers", :customers %>

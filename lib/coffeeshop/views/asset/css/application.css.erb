@@ -6,13 +6,9 @@ body {
   padding: 0;
 }
 
-header {
-  background: #eee;
-  border-bottom: 1px solid #ddd;
-  margin: 0 0 1em;
-  padding: 20px 0 20px 1em;
-  text-shadow: 1px 1px 0 #fff;
-}
+/**
+ * @1 GENERAL STYLES
+ */
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
@@ -28,15 +24,40 @@ h1 {
   font-size: 1.6em;
 }
 
-section h1 {
-  font-size: 1.4em
+
+/**
+ * @2 HEADER
+ */
+
+header {
+  background: #eee;
+  border-bottom: 1px solid #ddd;
+  margin: 0 0 0 20%;
+  padding: 20px 0 20px 2em;
+  text-shadow: 1px 1px 0 #fff;
 }
 
+
+header form {
+  font-size: 80%;
+  display: block;
+  position: absolute;
+  right: 1em;
+  top: 1em;
+}
+
+/**
+ * @3 NAVIGATION
+ */
+
 nav {
+  border-right: 1px solid #ddd;
   line-height: 2.2em;
-  float: left;
-  margin: 0 2em 0 0;
-  position: relative;
+  padding: 1em 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20%;
 }
 
 nav li {
@@ -44,7 +65,6 @@ nav li {
 }
 
 nav a {
-  border-right: 1px solid #ddd;
   color: #000;
   display: block;
   padding: 0 3em 0 2em;
@@ -56,12 +76,58 @@ nav a:hover {
   background: #f9f9f9;
 }
 
-header form {
-  display: block;
-  position: absolute;
-  right: 1em;
-  top: 1em;
+/**
+ * @4 MAIN SECTION
+ */
+
+section h1 {
+  font-size: 1.4em;
+  margin: 0 0 2em;
 }
+
+section {
+  padding: 2em 10% 60px 5%;
+  position: relative;
+  width: 65%;  
+  top: 0;
+  left: 20%;
+}
+
+/**
+ * @5 FORM ELEMENTS
+ */
+
+
+/* @5.1 Inputs */
+
+input[type='text'],
+input[type='password'],
+textarea {
+  clear: both;
+  display: block;
+  position: relative;
+  padding: 0.5em;
+  margin: 0 0 2em;
+  width: 100%;
+  font-size: 100%;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+}
+
+input[type='textarea']:focus,
+textarea:focus {
+  border: 1px solid #ccc;
+}
+
+/* @5.2 Labels */
+
+label {
+  display: inline-block;
+  margin: 0 0 0.5em 0;
+  position: relative;
+}
+
+/* @5.3 Buttons */
 
 input[type="submit"],
 input[type="button"] {
@@ -73,19 +139,21 @@ input[type="button"] {
   background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
   background: linear-gradient(top, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
   border: 1px solid #ddd;
-  -o-border-radius: 16px;
-  -moz-border-radius: 16px;
-  -webkit-border-radius: 16px;
-  border-radius: 16px;
+  -o-border-radius: 25px;
+  -moz-border-radius: 25px;
+  -webkit-border-radius: 25px;
+  border-radius: 25px;
   cursor: pointer;
-  padding: 8px 12px;
+  padding: 10px 20px;
   position: relative;
   text-shadow: 1px 1px 0 #fff;
+  font-size: 100%;
 }
 
 input[type="submit"]:hover,
 input[type="button"]:hover {
   box-shadow: 0 0 5px #eee;
+  border: 1px solid #ccc;
 }
 
 input[type="submit"]:active,
@@ -99,6 +167,34 @@ input[type="button"]:active {
   padding: 9px 12px 7px
 }
 
-section {
-  padding: 0.5em 3em 0 0;
+/**
+ * @6 TABLES
+ */
+table {
+  margin: 0 0 60px 0;
+}
+
+th, td {
+  padding: 0.5em 3em 0.5em 0.5em;
+  text-align: left;
+}
+
+th {
+  text-decoration: underline;
+}
+
+/**
+ * @6 INFORMATIONAL ELEMENTS
+ */
+
+/* @6.1 Notice box */
+
+#notice {
+  padding: 1em 1.5em;
+  background: #eee;
+  border: 1px solid #ddd;
+  display: inline-block;
+  clear: both;
+  position: relative;
+  margin: 0 0 3em;
 }

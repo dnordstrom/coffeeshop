@@ -1,5 +1,15 @@
 module CoffeeShop
   class PageController < CoffeeShop::Controller
+    # Creates hooks for running code before loading
+    # specific pages.
+    def self.before(page, &block)
+      method = page.to_s.gsub('/', '_')
+
+      define_method method.to_sym do
+        instance_eval &block
+      end
+    end
+
     def handle(request)
       # Save request hash
       @request = request
@@ -30,12 +40,19 @@ module CoffeeShop
       respond
     end
     
+    # Responds to GET /page/* requests.
     def get
       respond_to_html { render "page/#{@request.id}.html" }
     end
 
-    def products
+    # Before loading products.html.erb.
+    before :products do
       @products = Product.all
+    end
+
+    # Before loading users.html.erb.
+    before :users do
+      @users = User.all
     end
   end
 end

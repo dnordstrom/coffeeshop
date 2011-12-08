@@ -1,6 +1,7 @@
 module CoffeeShop
   class ProductController < CoffeeShop::Controller
     include PathHelper
+    include SessionHelper
     
     def handle(request)
       @request = request
@@ -15,9 +16,14 @@ module CoffeeShop
     end
     
     def post
+
+      respond_to_html { render "/page/products.html" }
+    end
+
+    def put
       return render 404 if @request.id.nil?
       
-      @products = CoffeeShop::Product.all(:id => @request.id)
+      @products = CoffeeShop::Product.first_or_create(:id => @request.id)
       @products.first.update(params)
       
       render "product/post.#{@request.format.to_s}"

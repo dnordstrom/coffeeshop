@@ -17,7 +17,7 @@
       <% end %>
     </tbody>
   </table>
-
+  
   <%= begin_form :product, :post %>
     <%= label "Title", [ :product, :title ] %>
     <%= text_field [ :product, :title ] %>
@@ -30,6 +30,8 @@
 
     <%= label "Description", [ :product, :description ] %>
     <%= text_area [ :product, :description ] %>
+
+    <%= submit_button "Create" %>
   <%= end_form %>
 </section>
 

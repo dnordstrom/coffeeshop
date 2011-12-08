@@ -16,10 +16,12 @@ module CoffeeShop
     
     # POST request 
     def post
-      email_address = param(:email_address)
-      password = param(:password)
+      login_details = param(:session)
+      email_address = login_data[:email]
+      password = login_data[:password]
       
       @user = CoffeeShop::User.authenticate(email_address, password)
+      session(:user_id, @user.id) unless @user.nil?
 
       render "session/post.html"
     end

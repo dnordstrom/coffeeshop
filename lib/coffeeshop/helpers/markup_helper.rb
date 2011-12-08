@@ -6,9 +6,11 @@ module CoffeeShop
       case resource
       when Symbol
         href += "/page/#{resource.to_s}"
-      when Class
-        if resource.is_a? CoffeeShop::Model
-          href += "/#{resource.class.downcase}/#{resource.id}"
+      when Object
+        # Any object with an ID insance variable will be used
+        # to construct the link to the object's REST URI.
+        unless resource.id.nil?
+          href += "/#{resource.class.to_s.split("::")[1].downcase}/#{resource.id}"
         end
       end
 
@@ -35,8 +37,10 @@ module CoffeeShop
       markup += submit_button(value, attributes)
       markup += close_tag(:form)
     end
-
-    def text_field(id, attributes = {})
+    
+    # Helper method for method_missing ghost methods, e.g.
+    # text_field, password_field etc.
+    def field(id, attributes = {})
       name = name_attribute_from(id)
       id = id_attribute_from(id)
       
@@ -71,19 +75,6 @@ module CoffeeShop
       open_tag(:label, attributes) + text + close_tag(:label)
     end
 
-    def hidden_field(id, attributes = {})
-      name = name_attribute_from(id)
-      id = id_attribute_from(id)
-      
-      attributes = {
-        type: "hidden",
-        name: name,
-        id: id
-      }.merge(attributes)
-
-      open_tag(:input, attributes)
-    end
-
     def submit_button(value, attributes = {})
       attributes = {
         type: "submit",
@@ -108,12 +99,30 @@ module CoffeeShop
         action: CoffeeShop::Application.base + "/#{action}"
       }.merge(attributes)
       
-      open_tag(:form, attributes) +
-        close_tag(:form)
+      open_tag(:form, attributes)
     end
 
     def end_form
       close_tag(:form)
+    end
+    
+    # Uses instance_eval to run block in context of a Form object,
+    # outputting name attributes as an array with same name as
+    # model. E.g.
+    #
+    # f.text_field :price #=>
+    #   <input type="text" id="product_price" name="product[price]">
+    def form(model, method, attributes = {})
+      if block_given?
+        form = Form.new
+        form.instance_eval do
+          begin_form(model, method, attributes)
+          yield
+          end_form
+        end
+      end
+
+      form.to_s
     end
 
     def open_tag(tag, attributes = {})
@@ -152,6 +161,16 @@ module CoffeeShop
       else
         id.to_s
       end
+    end
+
+    def method_missing(method, *args, &block)
+      if method.to_s =~ /^(.*)_field$/
+        name = args[0] || ""
+        attributes = { type: $1 }.merge(args[1] || {})
+        return send :field, name, attributes
+      end
+      
+      super
     end
   end
 end

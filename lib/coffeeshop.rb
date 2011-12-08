@@ -22,6 +22,7 @@ require_relative "coffeeshop/helpers/markup_helper"
 # Application components
 require_relative "coffeeshop/application"
 require_relative "coffeeshop/controller"
+require_relative "coffeeshop/form"
 
 # Controllers
 require_relative "coffeeshop/controllers/page_controller"
@@ -29,6 +30,7 @@ require_relative "coffeeshop/controllers/setting_controller"
 require_relative "coffeeshop/controllers/product_controller"
 require_relative "coffeeshop/controllers/session_controller"
 require_relative "coffeeshop/controllers/asset_controller"
+require_relative "coffeeshop/controllers/user_controller"
 
 # Models
 require_relative "coffeeshop/models/product"
