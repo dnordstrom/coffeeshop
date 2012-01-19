@@ -1,0 +1,18 @@
+<%= part "head.html" %>
+
+<section>
+  <h1>Log in</h1>
+
+  <%= begin_form :session, :post %>
+    
+    <%= label "E-mail", [ :session, :email ] %>
+    <%= text_field [ :session, :email ] %>
+
+    <%= label "Password", [ :session, :password ] %>
+    <%= password_field [ :session, :password ] %>
+
+  <%= end_form %>
+
+</section>
+
+<%= part "foot.html" %>

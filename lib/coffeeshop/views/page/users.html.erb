@@ -1,0 +1,38 @@
+<%= part "head.html" %>
+
+<section>
+  <h1>Users</h1>
+  
+  <%= part "notice.html" %>
+
+  <table cellspacing="0">
+    <thead>
+      <th>E-mail address</th>
+      <th><!-- Details --></th>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.email_address %></td>
+          <td><%= link_to "Details", user %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= begin_form :user, :post %>
+    <%= label "E-mail", [ :user, :email_address ] %>
+    <%= text_field [ :user, :email_address ] %>
+
+    <%= label "Password", [ :user, :password ] %>
+    <%= password_field [ :user, :password ] %>
+
+    <%= label "Confirm password", [ :user, :password ] %>
+    <%= password_field [ :user, :password_confirmation ] %>
+
+    <%= submit_button "Create" %>
+  <%= end_form %>
+
+</section>
+
+<%= part "foot.html" %>
